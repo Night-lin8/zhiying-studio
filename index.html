@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>智影工坊 AI 品牌宣传视频智能体</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="3" y="5" width="26" height="22" rx="5" fill="#101828"/>
+          <path d="M12.5 13.5 20 16l-7.5 2.5L10 26V6l2.5 7.5Z" fill="#2dd4bf"/>
+          <circle cx="24" cy="10" r="2.4" fill="#f59e0b"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">智影工坊</div>
+        <div class="brand-subtitle">AI Brand Video Studio</div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="status-pill" id="networkStatus" type="button" title="点击设置在线增强">
+        <span class="status-dot"></span>
+        <span id="networkStatusText">离线模式</span>
+      </button>
+      <button class="icon-button" id="settingsButton" type="button" title="在线服务设置" aria-label="在线服务设置">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <nav class="workflow-nav" aria-label="制作流程">
+      <button class="workflow-item active" data-step-target="brief" type="button">
+        <span class="workflow-index">01</span>
+        <span class="workflow-copy">
+          <strong>创意输入</strong>
+          <small>品牌与产品信息</small>
+        </span>
+      </button>
+      <button class="workflow-item" data-step-target="content" type="button">
+        <span class="workflow-index">02</span>
+        <span class="workflow-copy">
+          <strong>内容生成</strong>
+          <small>文案与分镜脚本</small>
+        </span>
+      </button>
+      <button class="workflow-item" data-step-target="compose" type="button">
+        <span class="workflow-index">03</span>
+        <span class="workflow-copy">
+          <strong>背景替换</strong>
+          <small>抠像与视觉合成</small>
+        </span>
+      </button>
+      <button class="workflow-item" data-step-target="export" type="button">
+        <span class="workflow-index">04</span>
+        <span class="workflow-copy">
+          <strong>预览导出</strong>
+          <small>成片与字幕文件</small>
+        </span>
+      </button>
+      <button class="workflow-item workflow-item-advisor" data-step-target="advisor" type="button">
+        <span class="workflow-index advisor-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8 8.38 8.38 0 0 1 8.5-8.5 8.38 8.38 0 0 1 8.5 8.5Z"/>
+            <path d="M8 11h.01M12 11h.01M16 11h.01"/>
+          </svg>
+        </span>
+        <span class="workflow-copy">
+          <strong>知识助手</strong>
+          <small>营销知识问答</small>
+        </span>
+      </button>
+    </nav>
+
+    <section class="workspace">
+      <section class="step-panel active" id="panel-brief">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">CREATIVE BRIEF</p>
+            <h1>品牌宣传创意输入</h1>
+          </div>
+          <button class="primary-button" id="generateButton" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 7-7 7 7"/><path d="M12 5v14"/></svg>
+            <span>生成内容</span>
+          </button>
+        </div>
+
+        <form id="briefForm" class="brief-form">
+          <div class="field-grid">
+          <div class="ai-brief-bar">
+            <div>
+              <strong>AI 创意补全</strong>
+              <span>配置在线模型后，可一键生成产品描述与卖点</span>
+            </div>
+            <button class="secondary-button" id="aiBriefButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 1.7 4.6L18 9.3l-4.3 1.7L12 15l-1.7-4L6 9.3l4.3-1.7L12 3Z"/><path d="m5 18 1 2.2L8 21l-2 .8L5 24l-1-2.2L2 21l2-.8L5 18Z"/></svg>
+              <span>AI 生成创意</span>
+            </button>
+          </div>
+            <label class="field field-wide">
+              <span>品牌名称</span>
+              <input id="brandName" name="brandName" value="星澜咖啡" maxlength="30" required>
+            </label>
+            <label class="field">
+              <span>产品名称</span>
+              <input id="productName" name="productName" value="山野冷萃拿铁" maxlength="40" required>
+            </label>
+            <label class="field">
+              <span>行业品类</span>
+              <select id="category" name="category">
+                <option>食品饮料</option>
+                <option>数码科技</option>
+                <option>美妆个护</option>
+                <option>服饰鞋包</option>
+                <option>生活服务</option>
+                <option>教育培训</option>
+              </select>
+            </label>
+            <label class="field field-wide">
+              <span>产品描述</span>
+              <textarea id="description" name="description" rows="3" maxlength="240" required>精选高海拔阿拉比卡咖啡豆，冷萃工艺保留花果香，0 糖低负担，开盖即饮。</textarea>
+            </label>
+            <label class="field field-wide">
+              <span>目标人群</span>
+              <input id="audience" name="audience" value="18-35 岁城市上班族与咖啡爱好者" maxlength="80" required>
+            </label>
+            <label class="field field-wide">
+              <span>核心卖点</span>
+              <textarea id="sellingPoints" name="sellingPoints" rows="3" maxlength="300" placeholder="每行一个卖点">冷萃工艺，花果香气
+0 糖配方，轻盈无负担
+开盖即饮，通勤随行</textarea>
+            </label>
+            <label class="field">
+              <span>表达风格</span>
+              <select id="tone" name="tone">
+                <option value="vitality">年轻活力</option>
+                <option value="tech">科技未来</option>
+                <option value="premium">高端沉稳</option>
+                <option value="promo">促销直给</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>成片比例</span>
+              <select id="aspectRatio" name="aspectRatio">
+                <option value="16:9">16:9 横屏</option>
+                <option value="9:16">9:16 竖屏</option>
+                <option value="1:1">1:1 方形</option>
+              </select>
+            </label>
+            <label class="field field-wide">
+              <span>创意方向</span>
+              <div class="segmented-control" id="directionControl">
+                <button type="button" data-direction="product" class="active">产品视觉</button>
+                <button type="button" data-direction="lifestyle">生活场景</button>
+                <button type="button" data-direction="story">品牌故事</button>
+              </div>
+              <input id="direction" name="direction" type="hidden" value="product">
+            </label>
+          </div>
+        </form>
+      </section>
+
+      <section class="step-panel" id="panel-content">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">AGENT OUTPUT</p>
+            <h1>文案与分镜脚本</h1>
+          </div>
+          <div class="heading-actions">
+            <button class="secondary-button" id="regenerateButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 0-2.34 5.66"/><path d="M20 4v7h-7"/></svg>
+              <span>换一版</span>
+            </button>
+            <button class="secondary-button" id="copyScriptButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span>复制脚本</span>
+            </button>
+            <button class="secondary-button" id="downloadMarkdownButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+              <span>导出文档</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="content-layout">
+          <article class="script-preview" id="scriptPreview" aria-live="polite"></article>
+          <aside class="storyboard-panel">
+            <div class="section-label">
+              <span>分镜预览</span>
+              <span id="storyboardCount" class="count-badge">0 镜</span>
+            </div>
+            <div class="storyboard-list" id="storyboardList"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="step-panel" id="panel-compose">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">BACKGROUND STUDIO</p>
+            <h1>主体抠像与背景替换</h1>
+          </div>
+          <div class="heading-actions">
+            <button class="secondary-button" id="downloadCutoutButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+              <span>下载透明图</span>
+            </button>
+            <button class="primary-button" id="applyCompositeButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 2 4.5 4.5.5-3.2 3.1.8 4.4-4.1-2.2-4.1 2.2.8-4.4L5.5 8l4.5-.5L12 3Z"/></svg>
+              <span>应用到分镜</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="studio-layout">
+          <div class="studio-toolbar">
+            <label class="upload-drop" id="foregroundDrop">
+              <input id="foregroundInput" type="file" accept="image/*" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
+              <strong>上传主体素材</strong>
+              <span>PNG / JPG</span>
+            </label>
+
+            <div class="control-group">
+              <label class="mini-field">
+                <span>抠像方法</span>
+                <select id="cutoutMethod">
+                  <option value="color">背景色取样</option>
+                  <option value="green">绿幕抠像</option>
+                  <option value="blue">蓝幕抠像</option>
+                  <option value="light">浅色背景</option>
+                </select>
+              </label>
+              <label class="range-field">
+                <span>容差 <b id="toleranceValue">34</b></span>
+                <input id="tolerance" type="range" min="5" max="90" value="34">
+              </label>
+              <label class="range-field">
+                <span>边缘柔化 <b id="featherValue">8</b></span>
+                <input id="feather" type="range" min="0" max="18" value="8">
+              </label>
+            </div>
+          </div>
+
+          <div class="canvas-area">
+            <div class="canvas-stage" id="canvasStage">
+              <canvas id="sourceCanvas" width="960" height="640" hidden></canvas>
+              <div class="empty-state" id="composeEmpty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4-4-8 9"/></svg>
+                <strong>等待上传主体素材</strong>
+              </div>
+            </div>
+            <div class="canvas-caption">
+              <span id="canvasHint">上传后可点击原图中的背景区域取样</span>
+              <span id="canvasSize">960 × 640</span>
+            </div>
+          </div>
+
+          <aside class="background-library">
+            <div class="section-label">
+              <span>背景库</span>
+              <label class="small-upload-button">
+                <input id="backgroundInput" type="file" accept="image/*" hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                上传
+              </label>
+            </div>
+            <div class="background-grid" id="backgroundGrid"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="step-panel" id="panel-export">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">FINAL RENDER</p>
+            <h1>成片预览与导出</h1>
+          </div>
+          <div class="heading-actions">
+            <button class="secondary-button" id="voiceButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
+              <span>试听配音</span>
+            </button>
+            <button class="secondary-button" id="downloadSrtButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h7"/></svg>
+              <span>导出字幕</span>
+            </button>
+            <button class="primary-button" id="exportVideoButton" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4V8Z"/></svg>
+              <span>录制并导出</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="export-layout">
+          <div class="video-shell">
+            <canvas id="previewCanvas" width="1280" height="720"></canvas>
+            <div class="playback-bar">
+              <button class="transport-button" id="playButton" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 5 12 7-12 7V5Z"/></svg>
+              </button>
+              <div class="timeline" id="timeline">
+                <div class="timeline-progress" id="timelineProgress"></div>
+              </div>
+              <span class="timecode" id="timecode">00:00 / 00:00</span>
+            </div>
+          </div>
+
+          <aside class="export-summary">
+            <div class="summary-block">
+              <span>成片比例</span>
+              <strong id="summaryRatio">16:9</strong>
+            </div>
+            <div class="summary-block">
+              <span>预计时长</span>
+              <strong id="summaryDuration">0 秒</strong>
+            </div>
+            <div class="summary-block">
+              <span>分镜数量</span>
+              <strong id="summaryShots">0 镜</strong>
+            </div>
+            <div class="summary-block">
+              <span>导出格式</span>
+              <strong>WebM</strong>
+            </div>
+            <label class="toggle-row">
+              <span>显示字幕</span>
+              <input id="subtitleToggle" type="checkbox" checked>
+            </label>
+            <label class="toggle-row">
+              <span>自动切镜</span>
+              <input id="autoAdvanceToggle" type="checkbox" checked>
+            </label>
+            <div class="shot-editor">
+              <div class="clip-editor-head">
+                <span>当前镜头</span>
+                <div class="shot-nav">
+                  <button class="text-button" id="prevShotButton" type="button">上一个</button>
+                  <button class="text-button" id="nextShotButton" type="button">下一个</button>
+                </div>
+              </div>
+              <label class="clip-field">
+                <span>场景</span>
+                <input id="shotScene" type="text" maxlength="60">
+              </label>
+              <label class="clip-field">
+                <span>字幕</span>
+                <input id="shotSubtitle" type="text" maxlength="160">
+              </label>
+              <div class="shot-editor-grid">
+                <label class="clip-field">
+                  <span>时长（秒）</span>
+                  <input id="shotDuration" type="number" min="0.5" step="0.1" value="4.5">
+                </label>
+                <label class="clip-field">
+                  <span>运镜</span>
+                  <select id="shotMotion">
+                    <option value="still">静止</option>
+                    <option value="pushIn">推近</option>
+                    <option value="pullOut">拉远</option>
+                    <option value="panLeft">左移</option>
+                    <option value="panRight">右移</option>
+                    <option value="tiltUp">上移</option>
+                    <option value="tiltDown">下移</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div class="clip-editor">
+              <div class="clip-editor-head">
+                <span>剪辑区间</span>
+                <button class="text-button" id="resetClipButton" type="button">重置</button>
+              </div>
+              <label class="clip-field">
+                <span>起点（秒）</span>
+                <input id="clipStart" type="number" min="0" step="0.1" value="0">
+              </label>
+              <label class="clip-field">
+                <span>终点（秒）</span>
+                <input id="clipEnd" type="number" min="0" step="0.1" value="0">
+              </label>
+              <div class="clip-actions">
+                <button class="secondary-button" id="playClipButton" type="button">预览区间</button>
+                <button class="primary-button" id="exportClipButton" type="button">导出片段</button>
+              </div>
+              <p class="clip-hint">区间为空时导出整段成片</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section class="step-panel" id="panel-advisor">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">KNOWLEDGE ASSISTANT</p>
+            <h1>品牌营销知识助手</h1>
+          </div>
+          <div class="heading-actions">
+            <button class="secondary-button" id="advisorClear" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
+              <span>清空对话</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="advisor-layout">
+          <div class="advisor-chat" id="advisorChat" aria-live="polite"></div>
+          <aside class="advisor-side">
+            <div class="section-label"><span>试试这些问题</span></div>
+            <div class="advisor-samples" id="advisorSamples">
+              <button type="button" class="advisor-chip">核心卖点可以怎么提炼？</button>
+              <button type="button" class="advisor-chip">抖音竖屏的分辨率和时长是多少？</button>
+              <button type="button" class="advisor-chip">帮我想想咖啡品牌的宣传思路</button>
+              <button type="button" class="advisor-chip">怎么给产品做品牌定位？</button>
+              <button type="button" class="advisor-chip">“最佳、第一”这类词能写吗？</button>
+            </div>
+            <div class="section-label"><span>对话生成工具</span></div>
+            <div class="advisor-generate">
+              <button class="primary-button" id="advisorGenerateScript" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+                <span>生成宣传脚本</span>
+              </button>
+              <button class="secondary-button" id="advisorGeneratePoster" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span>生成海报配图</span>
+              </button>
+            </div>
+            <div class="advisor-tip">
+              <strong>检索与兜底说明</strong>
+              <p>本地检索 Top-K=3，相似度阈值 0.72；低于阈值走兜底话术，同会话连续兜底 2 次显示「转人工咨询」；检测到手机号、身份证等将提示脱敏。</p>
+            </div>
+          </aside>
+        </div>
+
+        <form class="advisor-input-bar" id="advisorForm">
+          <input id="advisorInput" maxlength="200" autocomplete="off"
+                 placeholder="输入品牌营销或视频制作问题，例如：核心卖点可以怎么提炼？">
+          <button class="primary-button" type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            <span>发送</span>
+          </button>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="settingsModal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">OPTIONAL</p>
+          <h2 id="settingsTitle">在线增强设置</h2>
+        </div>
+        <button class="icon-button" id="closeSettingsButton" type="button" aria-label="关闭">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12"/><path d="m18 6-12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label class="field">
+          <span>服务商</span>
+          <select id="providerSelect">
+            <option value="openai">OpenAI Compatible</option>
+            <option value="deepseek">DeepSeek</option>
+            <option value="qwen">Qwen / 通义</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>接口地址</span>
+          <input id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" spellcheck="false">
+        </label>
+        <label class="field">
+          <span>模型名称</span>
+          <input id="apiModel" value="gpt-4o-mini" spellcheck="false">
+        </label>
+        <label class="field">
+          <span>API Key</span>
+          <input id="apiKey" type="password" autocomplete="off" placeholder="可选，仅保存在当前浏览器">
+        </label>
+        <div class="settings-divider">AI 图片生成</div>
+        <label class="field">
+          <span>图片接口地址</span>
+          <input id="imageEndpoint" value="https://api.openai.com/v1/images/generations" spellcheck="false">
+        </label>
+        <label class="field">
+          <span>图片模型</span>
+          <input id="imageModel" value="gpt-image-1" spellcheck="false">
+        </label>
+        <label class="field">
+          <span>图片尺寸</span>
+          <select id="imageSize">
+            <option value="auto">自动</option>
+            <option value="1024x1024">1024 × 1024</option>
+            <option value="1536x1024">1536 × 1024（横版）</option>
+            <option value="1024x1536">1024 × 1536（竖版）</option>
+          </select>
+        </label>
+        <label class="toggle-row settings-toggle">
+          <span>启用 AI 图片生成</span>
+          <input id="imageEnhancementToggle" type="checkbox" checked>
+        </label>
+        <label class="toggle-row settings-toggle">
+          <span>启用在线增强</span>
+          <input id="onlineEnhancementToggle" type="checkbox" checked>
+        </label>
+        <div class="settings-note">
+          <span class="status-dot"></span>
+          <span id="settingsStatus">当前为完全离线规则引擎</span>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-button" id="testApiButton" type="button">测试连接</button>
+          <button class="primary-button" id="saveSettingsButton" type="button">保存设置</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script src="knowledge.data.js"></script>
+  <script src="knowledge.js"></script>
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+  <script src="advisor.app.js"></script>
+</body>
+</html>
